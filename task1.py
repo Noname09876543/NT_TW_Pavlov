@@ -1,7 +1,6 @@
 import sys
 
 def circular_array_path(n, m):
-    """Вычисляет путь для кругового массива"""
     path = []
     current = 1
     first_element = True
@@ -9,7 +8,6 @@ def circular_array_path(n, m):
     while first_element or current != 1:
         first_element = False
         path.append(str(current))
-        # Вычисляем следующую начальную позицию
         current = (current + m - 2) % n + 1
 
     return ''.join(path)
@@ -28,7 +26,7 @@ def main():
         print(path1 + path2)
 
     except ValueError:
-        print("Все аргументы должны быть целыми числами")
+        print("Все аргументы должны быть целыми")
 
 if __name__ == "__main__":
     main()
