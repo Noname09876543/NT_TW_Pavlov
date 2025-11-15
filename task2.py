@@ -41,6 +41,7 @@ def point_relative_to_circle(circle_file, points_file):
 def main():
     if len(sys.argv) != 3:
         print("Использование: python task2.py circle_file points_file")
+        print("В данном задании используйте: python task2.py circle.txt dot.txt")
         return
     
     circle_file = sys.argv[1]
