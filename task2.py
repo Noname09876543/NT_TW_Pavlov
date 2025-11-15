@@ -2,30 +2,43 @@ import sys
 import math
 
 def point_relative_to_circle(circle_file, points_file):
+    """Определяет положение точек относительно круга"""
     try:
         # Чтение параметров круга
         with open(circle_file, 'r') as f:
-            center_line = f.readline().strip().split()
-            radius_line = f.readline().strip()
+            lines = [line.strip() for line in f if line.strip()]
             
+            # Читаем координаты центра из первой строки
+            center_line = lines[0].split()
             x_center, y_center = map(float, center_line)
-            radius = float(radius_line)
+            
+            # Читаем радиус из второй строки
+            radius_line = lines[1].split()
+            if len(radius_line) == 2:
+                # Если два числа, берем только первое как радиус
+                radius = float(radius_line[0])
+            else:
+                # Если одно число, используем его
+                radius = float(radius_line[0])
         
+        # Чтение точек
         with open(points_file, 'r') as f:
             points = [line.strip().split() for line in f if line.strip()]
         
         results = []
         for point in points:
             x, y = map(float, point)
+            # Вычисление расстояния от центра круга до точки
             distance = math.sqrt((x - x_center) ** 2 + (y - y_center) ** 2)
             
             if abs(distance - radius) < 1e-10:  # Учет погрешности вычислений
-                results.append(0) 
+                results.append(0)  # На окружности
             elif distance < radius:
-                results.append(1)
+                results.append(1)  # Внутри
             else:
-                results.append(2)
+                results.append(2)  # Снаружи
         
+        # Вывод результатов
         for result in results:
             print(result)
     
